@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Http Lib</string>
+    <string name="http_exception">http请求异常</string>
+    <string name="code_1006_json_syntax">code_1006_json_syntax</string>
+    <string name="code_1003_connect_fail">code_1003_connect_fail</string>
+    <string name="code_1004_socket_time_out">code_1004_socket_time_out</string>
+    <string name="code_1007_error_exception">code_1007_error_exception</string>
+    <string name="code_1005_host_exception">code_1005_host_exception</string>
+    <string name="unKnow_error">unKnow_error</string>
+    <string name="code_1001_json_parse">code_1001_json_parse</string>
+    <string name="data_fields_may_have_error_please_check">data_fields_may_have_error_please_check</string>
+
+</resources>
