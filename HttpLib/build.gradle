@@ -47,4 +47,6 @@ dependencies {
     api 'com.github.masite:logutil:1.0.0'
     //数据解析
     api 'com.alibaba:fastjson:1.1.68.android'
+    // rxlifecycle2 控制生命周期的 http://10.132.96.84:8301/Source/MyNextEv/image/cutting/13100E12A7C24C26094FEA67EEF47315.jpg
+    api 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
 }
