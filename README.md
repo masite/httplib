@@ -37,4 +37,20 @@ RetrofitFactory.getInstance().getService(testIn.class).getPushs(header,params)
                             }
                         });
 ```
+4. 如果某次请求 ，baseurl和 基础的不一致。可以这么做
+```
+CommonRetrofitFactory.getInstance("此处为临时baseurl").getService(testIn.class).getPushs(header,params)
+                        .map(new ApiServerResultFunction<JSONObject>())
+                        .compose(MainActivity.this.<BaseResponse<JSONObject>>bindToLifecycle())
+                        .subscribe(new HttpObserver<JSONObject>("Test") {
+                            @Override
+                            protected void onFail(BaseException e) {
+                                Logger.d("====onFail" + JSON.toJSON(e));
+                            }
 
+                            @Override
+                            protected void onSuccess(BaseResponse<JSONObject> response) {
+                                Logger.d("====onSuccess" + JSON.toJSON(response));
+                            }
+                        });
+```
