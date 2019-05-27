@@ -22,7 +22,9 @@ public class MockUtils {
    * 是否为mock模式
    */
   public static boolean isMock() {
-
+    if(HttpSdk.getInstance().getmUrlBean() == null){
+      return false;
+    }
     return BaseUrlEnum.MOCK.equals(HttpSdk.getInstance().getmUrlBean().urlType) && MOCK_HOST.equals(HttpSdk.getInstance().getmUrlBean().mockUrl);
   }
 }
