@@ -27,7 +27,7 @@ public class RetrofitHelper {
     public static final String DOMAIN_NAME = "Domain-Name";
     public static final String DOMAIN_NAME_HEADER = "Domain-Name: ";
     private static final long TIMEOUT = 30L;
-    private static String baseUrl;
+    private String baseUrl;
     private OkHttpClient.Builder okHttpClientBuilder;
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
@@ -95,6 +95,7 @@ public class RetrofitHelper {
     }
 
     public void putUrl(String tag, String url) {
+        baseUrl = url;
         this.interceptor.putUrl(tag, url);
     }
 
@@ -117,6 +118,10 @@ public class RetrofitHelper {
             });
             return (T) o;
         }
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
     }
 }
 

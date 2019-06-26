@@ -17,6 +17,10 @@ public class HttpSdk {
         return CoreSdkHolder.instance;
     }
 
+    /**
+      * @param isDebug 控制是否输出网络请求日志，是否允许代理  true > 允许
+     *
+      */
     public void init(Context context, boolean isDebug, UrlBean urlBean) {
         mContext = context;
         mIsDebug = isDebug;

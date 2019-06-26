@@ -19,7 +19,6 @@ import okio.Buffer;
 import okio.BufferedSource;
 
 public class HttpUtils {
-    public static String httpTag = System.currentTimeMillis() + "----->";
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     public HttpUtils() {
@@ -30,7 +29,7 @@ public class HttpUtils {
         Connection connection = chain.connection();
         Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
         String requestStartMessage = request.method() + ' ' + request.url() + ' ' + protocol;
-        Logger.d(httpTag + requestStartMessage);
+        Logger.d("logRequest:  "+requestStartMessage);
     }
 
     public static void logResponse(Response response) throws IOException {
@@ -45,17 +44,17 @@ public class HttpUtils {
             try {
                 charset = contentType.charset(UTF8);
             } catch (UnsupportedCharsetException var9) {
-                Logger.e(httpTag + "Couldn't decode the response body; charset is likely malformed.");
-                Logger.e(httpTag + "END HTTP");
+                Logger.e("Couldn't decode the response body; charset is likely malformed.");
+                Logger.e("END HTTP");
                 return;
             }
         }
 
         if (!isPlaintext(buffer)) {
-            Logger.d(httpTag + "END HTTP (binary " + buffer.size() + "-byte body omitted)");
+            Logger.d( "END HTTP (binary " + buffer.size() + "-byte body omitted)");
         } else {
             if (contentLength != 0L) {
-                Logger.d(httpTag + buffer.clone().readString(charset));
+                Logger.d(buffer.clone().readString(charset));
             }
 
         }

@@ -41,21 +41,6 @@ public class HttpRxManager {
   }
 
   /**
-   * 移除当前请求
-   *
-   * @param tag 请求标识
-   */
-  public void remove(Object tag) {
-    if (tagMap.containsKey(tag)) {
-      Disposable disposable = tagMap.get(tag);
-      if (disposable != null && !disposable.isDisposed()) {
-        disposable.dispose();
-      }
-    }
-    tagMap.remove(tag);
-  }
-
-  /**
    * 取消当前请求
    *
    * @param tag 请求标识

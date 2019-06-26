@@ -3,12 +3,15 @@ package com.component.httplib.http.exception;
 import android.accounts.NetworkErrorException;
 import android.net.ParseException;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.component.httplib.HttpSdk;
 import com.component.httplib.R;
 import com.google.gson.JsonSyntaxException;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -23,7 +26,16 @@ public class ExceptionHandler {
         BaseException ex;
         if (e instanceof HttpException) {
             HttpException httpExc = (HttpException)e;
-            ex = new BaseException(httpExc, String.valueOf(httpExc.code()), HttpSdk.getInstance().getContext().getString(R.string.http_exception));
+            try {
+                String string = httpExc.response().errorBody().string();
+                JSONObject jsonObject = JSON.parseObject(string);
+                String code = jsonObject.getString("code");
+                String msg = jsonObject.getString("message");
+                ex = new BaseException(httpExc, code, msg);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                ex = new BaseException(httpExc, String.valueOf(httpExc.code()), HttpSdk.getInstance().getContext().getString(R.string.http_exception));
+            }
             return ex;
         } else if (e instanceof ServerException) {
             ServerException serverExc = (ServerException)e;

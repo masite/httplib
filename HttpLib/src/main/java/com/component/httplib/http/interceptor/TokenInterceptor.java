@@ -48,7 +48,7 @@ public class TokenInterceptor implements Interceptor {
         try {
             response = chain.proceed(request);
         } catch (Exception var5) {
-            Logger.e(HttpUtils.httpTag + "HTTP FAILED: ", new Object[]{var5});
+            Logger.e("HTTP FAILED: ", new Object[]{var5});
             throw var5;
         }
         return response;
@@ -70,7 +70,7 @@ public class TokenInterceptor implements Interceptor {
         }
 
         String param = (new Gson()).toJson(params);
-        Logger.d(HttpUtils.httpTag + "params:" + param);
+        Logger.d("params:" + param);
         if (null == this.provider) {
             return request;
         } else {

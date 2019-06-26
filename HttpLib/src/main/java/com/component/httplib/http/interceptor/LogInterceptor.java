@@ -26,7 +26,7 @@ public class LogInterceptor implements Interceptor {
         try {
             response = chain.proceed(request);
         } catch (Exception var5) {
-            Logger.e(HttpUtils.httpTag + "HTTP FAILED: ", new Object[]{var5});
+            Logger.e("HTTP FAILED: ", new Object[]{var5});
             throw var5;
         }
 
@@ -47,14 +47,14 @@ public class LogInterceptor implements Interceptor {
                 e.printStackTrace(printWriter);
                 result.flush();
                 result.close();
-                Logger.e(HttpUtils.httpTag + result.toString());
+                Logger.e(result.toString());
             } catch (IOException var7) {
                 if (result != null) {
                     try {
                         result.flush();
                         result.close();
                     } catch (IOException var6) {
-                        ;
+
                     }
                 }
             }
