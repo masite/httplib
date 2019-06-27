@@ -3,16 +3,15 @@
 1. 初始化
 ```
       //初始化网路环境 在application中
-      UrlBean urlBean = new UrlBean();
-      urlBean.urlType = "";//接口类型 。可为空
-      urlBean.mockUrl = "";//mock地址 。可为空
-      urlBean.baseUrl = "";//baseurl 。不可为空
-      HttpSdk.getInstance().init(context,AppUtils.isAppDebug(),urlBean);
+       UrlBean urlBean = new UrlBean();
+       urlBean.baseUrl = "https://toolsapi.****.cc";
+       //第二个参数 是否打印网络日志且允许代理 。true 》 是
+       HttpSdk.getInstance().init(this,true,urlBean);
 ```
 
 2. 配置请求体
 ```
-    //DOMAIN_NAME_HEADER + HEAD_NAME 用于动态切换baseURL 。用不到的可以不加
+    //DOMAIN_NAME_HEADER + HEAD_NAME 用于动态切换baseURL. 不需要切换baseurl时，可不加
     @Headers({"Content-type:application/json;charset=UTF-8", DOMAIN_NAME_HEADER + HEAD_NAME})
     @GET("goods")
     Observable<BaseResponse<JSONObject>> getPushs(@HeaderMap Map<String, String> headers, @QueryMap Map<String,String> params);
@@ -39,18 +38,19 @@ RetrofitFactory.getInstance().getService(testIn.class).getPushs(header,params)
 ```
 4. 如果某次请求 ，baseurl和 基础的不一致。可以这么做
 ```
-CommonRetrofitFactory.getInstance("此处为临时baseurl").getService(testIn.class).getPushs(header,params)
-                        .map(new ApiServerResultFunction<JSONObject>())
-                        .compose(MainActivity.this.<BaseResponse<JSONObject>>bindToLifecycle())
-                        .subscribe(new HttpObserver<JSONObject>("Test") {
-                            @Override
-                            protected void onFail(BaseException e) {
-                                Logger.d("====onFail" + JSON.toJSON(e));
-                            }
+ RetrofitFactory.getInstance().putBaseUrl("临时baseurl").getService(testIn.class).getPushs(header,params)
+                        .subscribe(new BaseObserver<JSONArray>("getCardData") {
 
-                            @Override
-                            protected void onSuccess(BaseResponse<JSONObject> response) {
-                                Logger.d("====onSuccess" + JSON.toJSON(response));
-                            }
-                        });
+                                                                                  @Override
+                                                                                  public void onFail(BaseException baseEx) {
+                                                                                      Logger.d("====》》》》》》》" + baseEx.getCode() + baseEx.getMsg());
+
+                                                                                  }
+
+                                                                                  @Override
+                                                                                  public void onSuccess(JSONArray baseEx) {
+
+                                                                                  }
+                                                                              }
+                                                                   );
 ```
