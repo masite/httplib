@@ -7,6 +7,11 @@
        urlBean.baseUrl = "https://toolsapi.****.cc";
        //第二个参数 是否打印网络日志且允许代理 。true 》 是
        HttpSdk.getInstance().init(this,true,urlBean);
+
+
+       //如果需要加拦截器。可以这样做
+        OkHttpClient.Builder okHttpClientBuilder = RetrofitFactory.getInstance().getHelper().getOkHttpClientBuilder();
+        okHttpClientBuilder.addInterceptor(new HeaderInterceptor());
 ```
 
 2. 配置请求体
