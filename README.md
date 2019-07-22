@@ -42,6 +42,7 @@ RetrofitFactory.getInstance().getService(testIn.class).getPushs(header,params)
                         });
 ```
 4. 如果某次请求 ，baseurl和 基础的不一致。可以这么做
+如果需要在这里加header,header需要放在params的前面。
 ```
  RetrofitFactory.getInstance().putBaseUrl("临时baseurl").getService(testIn.class).getPushs(header,params)
                         .subscribe(new BaseObserver<JSONArray>("getCardData") {
